@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2048
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "Metadata Collection", "Metadata Collection\Metadata Collection.dtproj", "{31E0F325-8EC4-4329-9A55-F1C2A2CEDCB3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{31E0F325-8EC4-4329-9A55-F1C2A2CEDCB3}.Development|Default.ActiveCfg = Development
+		{31E0F325-8EC4-4329-9A55-F1C2A2CEDCB3}.Development|Default.Build.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DA4D3EA8-989C-46C1-B980-682B5A2EF38A}
+	EndGlobalSection
+EndGlobal
