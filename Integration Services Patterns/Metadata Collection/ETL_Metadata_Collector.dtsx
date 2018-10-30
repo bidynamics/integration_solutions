@@ -11,12 +11,1367 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="ETL_Metadata_Collector"
   DTS:PackageType="5"
-  DTS:VersionBuild="1"
-  DTS:VersionGUID="{379D88C9-C75C-4E63-8C49-D63CD7C2F400}">
+  DTS:VersionBuild="12"
+  DTS:VersionGUID="{D003F19A-2227-4CDB-8284-86DAFD8EDA93}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
-  <DTS:Variables />
-  <DTS:Executables />
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DynamicSQLServerInstance]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{A1E53AC3-80A7-41FD-A73B-5A858659AF86}"
+      DTS:ObjectName="DynamicSQLServerInstance">
+      <DTS:PropertyExpression
+        DTS:Name="ServerName">@[User::SQLServerInstance]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=NAUTILUS\SQLSERVER2017;Initial Catalog=master;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[NAUTILUS\SQLSERVER2017.CentralLoggin]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{431E4CC8-6B32-4ACF-AD39-5C52348E865D}"
+      DTS:ObjectName="NAUTILUS\SQLSERVER2017.CentralLoggin">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=NAUTILUS\SQLSERVER2017;Initial Catalog=CentralLoggin;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{E5CDFC87-3DFA-4045-9BD0-1F6B83A2E2F5}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="SQLServerInstance">
+      <DTS:VariableValue
+        DTS:DataType="8">NAUTILUS\SQLSERVER2017</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{F79B3A64-8AAA-4B58-9026-E28A16BB05BD}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="SQLServerList">
+      <DTS:VariableValue
+        DTS:DataSubType="ManagedSerializable"
+        DTS:DataType="13">
+        <SOAP-ENV:Envelope xmlns:clr="http://schemas.microsoft.com/soap/encoding/clr/1.0" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+          <SOAP-ENV:Body>
+            <xsd:anyType
+              id="ref-1"></xsd:anyType>
+          </SOAP-ENV:Body>
+        </SOAP-ENV:Envelope>
+      </DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\SQNC - Metadata Collector"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{C5C10BB8-8897-4028-8A23-161C0EFA4B27}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQNC - Metadata Collector">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance"
+          DTS:CreationName="STOCK:FOREACHLOOP"
+          DTS:Description="Foreach Loop Container"
+          DTS:DTSID="{A815E2F9-D1A6-4094-94B2-4A230FB5A648}"
+          DTS:ExecutableType="STOCK:FOREACHLOOP"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Foreach SQL Server Instrance">
+          <DTS:ForEachEnumerator
+            DTS:CreationName="Microsoft.ForEachADOEnumerator"
+            DTS:DTSID="{125C1613-7680-4ED6-88D5-F97A65ECD3CF}"
+            DTS:ObjectName="{125C1613-7680-4ED6-88D5-F97A65ECD3CF}">
+            <DTS:ObjectData>
+              <FEEADO
+                EnumType="EnumerateRowsInFirstTable"
+                VarName="User::SQLServerList" />
+            </DTS:ObjectData>
+          </DTS:ForEachEnumerator>
+          <DTS:Variables />
+          <DTS:Executables>
+            <DTS:Executable
+              DTS:refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size"
+              DTS:CreationName="Microsoft.Pipeline"
+              DTS:Description="Data Flow Task"
+              DTS:DTSID="{D3DA2EE3-B9BD-4759-A4A2-155B41D30C0E}"
+              DTS:ExecutableType="Microsoft.Pipeline"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="DFT - Database Size"
+              DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+              <DTS:Variables />
+              <DTS:ObjectData>
+                <pipeline
+                  version="1">
+                  <components>
+                    <component
+                      refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE DST - Store Data and Log Size Information"
+                      componentClassID="Microsoft.OLEDBDestination"
+                      contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                      description="OLE DB Destination"
+                      name="OLE DST - Store Data and Log Size Information"
+                      usesDispositions="true"
+                      version="4">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                          name="CommandTimeout">0</property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the name of the database object used to open a rowset."
+                          name="OpenRowset">[monitor].[DatabaseGrowth]</property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the variable that contains the name of the database object used to open a rowset."
+                          name="OpenRowsetVariable"></property>
+                        <property
+                          dataType="System.String"
+                          description="The SQL command to be executed."
+                          name="SqlCommand"
+                          UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the column code page to use when code page information is unavailable from the data source."
+                          name="DefaultCodePage">1252</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Forces the use of the DefaultCodePage property value when describing character data."
+                          name="AlwaysUseDefaultCodePage">false</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the mode used to access the database."
+                          name="AccessMode"
+                          typeConverter="AccessMode">3</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                          name="FastLoadKeepIdentity">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                          name="FastLoadKeepNulls">false</property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                          name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                          name="FastLoadMaxInsertCommitSize">2147483647</property>
+                      </properties>
+                      <connections>
+                        <connection
+                          refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE DST - Store Data and Log Size Information.Connections[OleDbConnection]"
+                          connectionManagerID="Package.ConnectionManagers[NAUTILUS\SQLSERVER2017.CentralLoggin]"
+                          connectionManagerRefId="Package.ConnectionManagers[NAUTILUS\SQLSERVER2017.CentralLoggin]"
+                          description="The OLE DB runtime connection used to access the database."
+                          name="OleDbConnection" />
+                      </connections>
+                      <inputs>
+                        <input
+                          refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE DST - Store Data and Log Size Information.Inputs[OLE DB Destination Input]"
+                          errorOrTruncationOperation="Insert"
+                          errorRowDisposition="FailComponent"
+                          hasSideEffects="true"
+                          name="OLE DB Destination Input">
+                          <inputColumns>
+                            <inputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE DST - Store Data and Log Size Information.Inputs[OLE DB Destination Input].Columns[captureDate]"
+                              cachedDataType="dbTimeStamp"
+                              cachedName="captureDate"
+                              externalMetadataColumnId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE DST - Store Data and Log Size Information.Inputs[OLE DB Destination Input].ExternalColumns[captureDate]"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE SRC - Get DBs Information.Outputs[OLE DB Source Output].Columns[captureDate]" />
+                            <inputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE DST - Store Data and Log Size Information.Inputs[OLE DB Destination Input].Columns[serverName]"
+                              cachedDataType="wstr"
+                              cachedLength="128"
+                              cachedName="serverName"
+                              externalMetadataColumnId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE DST - Store Data and Log Size Information.Inputs[OLE DB Destination Input].ExternalColumns[serverName]"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE SRC - Get DBs Information.Outputs[OLE DB Source Output].Columns[serverName]" />
+                            <inputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE DST - Store Data and Log Size Information.Inputs[OLE DB Destination Input].Columns[databaseName]"
+                              cachedDataType="wstr"
+                              cachedLength="128"
+                              cachedName="databaseName"
+                              externalMetadataColumnId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE DST - Store Data and Log Size Information.Inputs[OLE DB Destination Input].ExternalColumns[databaseName]"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE SRC - Get DBs Information.Outputs[OLE DB Source Output].Columns[databaseName]" />
+                            <inputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE DST - Store Data and Log Size Information.Inputs[OLE DB Destination Input].Columns[dataSizeInKB]"
+                              cachedDataType="i8"
+                              cachedName="dataSizeInKB"
+                              externalMetadataColumnId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE DST - Store Data and Log Size Information.Inputs[OLE DB Destination Input].ExternalColumns[dataSizeInKB]"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE SRC - Get DBs Information.Outputs[OLE DB Source Output].Columns[dataSizeInKB]" />
+                            <inputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE DST - Store Data and Log Size Information.Inputs[OLE DB Destination Input].Columns[logSizeInKB]"
+                              cachedDataType="i8"
+                              cachedName="logSizeInKB"
+                              externalMetadataColumnId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE DST - Store Data and Log Size Information.Inputs[OLE DB Destination Input].ExternalColumns[logSizeInKB]"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE SRC - Get DBs Information.Outputs[OLE DB Source Output].Columns[logSizeInKB]" />
+                          </inputColumns>
+                          <externalMetadataColumns
+                            isUsed="True">
+                            <externalMetadataColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE DST - Store Data and Log Size Information.Inputs[OLE DB Destination Input].ExternalColumns[log_id]"
+                              dataType="i4"
+                              name="log_id" />
+                            <externalMetadataColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE DST - Store Data and Log Size Information.Inputs[OLE DB Destination Input].ExternalColumns[captureDate]"
+                              dataType="dbTimeStamp"
+                              name="captureDate" />
+                            <externalMetadataColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE DST - Store Data and Log Size Information.Inputs[OLE DB Destination Input].ExternalColumns[serverName]"
+                              dataType="wstr"
+                              length="128"
+                              name="serverName" />
+                            <externalMetadataColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE DST - Store Data and Log Size Information.Inputs[OLE DB Destination Input].ExternalColumns[databaseName]"
+                              dataType="wstr"
+                              length="128"
+                              name="databaseName" />
+                            <externalMetadataColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE DST - Store Data and Log Size Information.Inputs[OLE DB Destination Input].ExternalColumns[dataSizeInKB]"
+                              dataType="i8"
+                              name="dataSizeInKB" />
+                            <externalMetadataColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE DST - Store Data and Log Size Information.Inputs[OLE DB Destination Input].ExternalColumns[logSizeInKB]"
+                              dataType="i8"
+                              name="logSizeInKB" />
+                          </externalMetadataColumns>
+                        </input>
+                      </inputs>
+                      <outputs>
+                        <output
+                          refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE DST - Store Data and Log Size Information.Outputs[OLE DB Destination Error Output]"
+                          exclusionGroup="1"
+                          isErrorOut="true"
+                          name="OLE DB Destination Error Output"
+                          synchronousInputId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE DST - Store Data and Log Size Information.Inputs[OLE DB Destination Input]">
+                          <outputColumns>
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE DST - Store Data and Log Size Information.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                              dataType="i4"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE DST - Store Data and Log Size Information.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                              name="ErrorCode"
+                              specialFlags="1" />
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE DST - Store Data and Log Size Information.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                              dataType="i4"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE DST - Store Data and Log Size Information.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                              name="ErrorColumn"
+                              specialFlags="2" />
+                          </outputColumns>
+                          <externalMetadataColumns />
+                        </output>
+                      </outputs>
+                    </component>
+                    <component
+                      refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE SRC - Get DBs Information"
+                      componentClassID="Microsoft.OLEDBSource"
+                      contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                      description="OLE DB Source"
+                      name="OLE SRC - Get DBs Information"
+                      usesDispositions="true"
+                      version="7">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                          name="CommandTimeout">0</property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the name of the database object used to open a rowset."
+                          name="OpenRowset"></property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the variable that contains the name of the database object used to open a rowset."
+                          name="OpenRowsetVariable"></property>
+                        <property
+                          dataType="System.String"
+                          description="The SQL command to be executed."
+                          name="SqlCommand"
+                          UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">--Retrieve Current Data and Log File Sizes for All Databases on the Server
+SELECT 
+	GETDATE() AS [captureDate]
+	, @@SERVERNAME AS [serverName]
+	, instance_name AS [databaseName]
+	, SUM(
+		CASE
+			WHEN counter_name = 'Data File(s) Size (KB)'
+			THEN cntr_value
+		END
+	) AS 'dataSizeInKB'
+	, SUM(
+		CASE
+			WHEN counter_name = 'Log File(s) Size (KB)'
+			THEN cntr_value
+		END
+	) AS 'logSizeInKB'
+FROM 
+	sys.dm_os_performance_counters
+WHERE 
+		counter_name IN ('Data File(s) Size (KB)','Log File(s) Size (KB)')
+	AND instance_name &lt;&gt; '_Total'
+GROUP BY 
+	instance_name
+;</property>
+                        <property
+                          dataType="System.String"
+                          description="The variable that contains the SQL command to be executed."
+                          name="SqlCommandVariable"></property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the column code page to use when code page information is unavailable from the data source."
+                          name="DefaultCodePage">1252</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Forces the use of the DefaultCodePage property value when describing character data."
+                          name="AlwaysUseDefaultCodePage">false</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the mode used to access the database."
+                          name="AccessMode"
+                          typeConverter="AccessMode">2</property>
+                        <property
+                          dataType="System.String"
+                          description="The mappings between the parameters in the SQL command and variables."
+                          name="ParameterMapping"></property>
+                      </properties>
+                      <connections>
+                        <connection
+                          refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE SRC - Get DBs Information.Connections[OleDbConnection]"
+                          connectionManagerID="Package.ConnectionManagers[DynamicSQLServerInstance]"
+                          connectionManagerRefId="Package.ConnectionManagers[DynamicSQLServerInstance]"
+                          description="The OLE DB runtime connection used to access the database."
+                          name="OleDbConnection" />
+                      </connections>
+                      <outputs>
+                        <output
+                          refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE SRC - Get DBs Information.Outputs[OLE DB Source Output]"
+                          name="OLE DB Source Output">
+                          <outputColumns>
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE SRC - Get DBs Information.Outputs[OLE DB Source Output].Columns[captureDate]"
+                              dataType="dbTimeStamp"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE SRC - Get DBs Information.Outputs[OLE DB Source Output].ExternalColumns[captureDate]"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE SRC - Get DBs Information.Outputs[OLE DB Source Output].Columns[captureDate]"
+                              name="captureDate"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE SRC - Get DBs Information.Outputs[OLE DB Source Output].Columns[serverName]"
+                              dataType="wstr"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE SRC - Get DBs Information.Outputs[OLE DB Source Output].ExternalColumns[serverName]"
+                              length="128"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE SRC - Get DBs Information.Outputs[OLE DB Source Output].Columns[serverName]"
+                              name="serverName"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE SRC - Get DBs Information.Outputs[OLE DB Source Output].Columns[databaseName]"
+                              dataType="wstr"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE SRC - Get DBs Information.Outputs[OLE DB Source Output].ExternalColumns[databaseName]"
+                              length="128"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE SRC - Get DBs Information.Outputs[OLE DB Source Output].Columns[databaseName]"
+                              name="databaseName"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE SRC - Get DBs Information.Outputs[OLE DB Source Output].Columns[dataSizeInKB]"
+                              dataType="i8"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE SRC - Get DBs Information.Outputs[OLE DB Source Output].ExternalColumns[dataSizeInKB]"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE SRC - Get DBs Information.Outputs[OLE DB Source Output].Columns[dataSizeInKB]"
+                              name="dataSizeInKB"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE SRC - Get DBs Information.Outputs[OLE DB Source Output].Columns[logSizeInKB]"
+                              dataType="i8"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE SRC - Get DBs Information.Outputs[OLE DB Source Output].ExternalColumns[logSizeInKB]"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE SRC - Get DBs Information.Outputs[OLE DB Source Output].Columns[logSizeInKB]"
+                              name="logSizeInKB"
+                              truncationRowDisposition="FailComponent" />
+                          </outputColumns>
+                          <externalMetadataColumns
+                            isUsed="True">
+                            <externalMetadataColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE SRC - Get DBs Information.Outputs[OLE DB Source Output].ExternalColumns[captureDate]"
+                              dataType="dbTimeStamp"
+                              name="captureDate" />
+                            <externalMetadataColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE SRC - Get DBs Information.Outputs[OLE DB Source Output].ExternalColumns[serverName]"
+                              dataType="wstr"
+                              length="128"
+                              name="serverName" />
+                            <externalMetadataColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE SRC - Get DBs Information.Outputs[OLE DB Source Output].ExternalColumns[databaseName]"
+                              dataType="wstr"
+                              length="128"
+                              name="databaseName" />
+                            <externalMetadataColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE SRC - Get DBs Information.Outputs[OLE DB Source Output].ExternalColumns[dataSizeInKB]"
+                              dataType="i8"
+                              name="dataSizeInKB" />
+                            <externalMetadataColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE SRC - Get DBs Information.Outputs[OLE DB Source Output].ExternalColumns[logSizeInKB]"
+                              dataType="i8"
+                              name="logSizeInKB" />
+                          </externalMetadataColumns>
+                        </output>
+                        <output
+                          refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE SRC - Get DBs Information.Outputs[OLE DB Source Error Output]"
+                          isErrorOut="true"
+                          name="OLE DB Source Error Output">
+                          <outputColumns>
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE SRC - Get DBs Information.Outputs[OLE DB Source Error Output].Columns[captureDate]"
+                              dataType="dbTimeStamp"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE SRC - Get DBs Information.Outputs[OLE DB Source Error Output].Columns[captureDate]"
+                              name="captureDate" />
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE SRC - Get DBs Information.Outputs[OLE DB Source Error Output].Columns[serverName]"
+                              dataType="wstr"
+                              length="128"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE SRC - Get DBs Information.Outputs[OLE DB Source Error Output].Columns[serverName]"
+                              name="serverName" />
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE SRC - Get DBs Information.Outputs[OLE DB Source Error Output].Columns[databaseName]"
+                              dataType="wstr"
+                              length="128"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE SRC - Get DBs Information.Outputs[OLE DB Source Error Output].Columns[databaseName]"
+                              name="databaseName" />
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE SRC - Get DBs Information.Outputs[OLE DB Source Error Output].Columns[dataSizeInKB]"
+                              dataType="i8"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE SRC - Get DBs Information.Outputs[OLE DB Source Error Output].Columns[dataSizeInKB]"
+                              name="dataSizeInKB" />
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE SRC - Get DBs Information.Outputs[OLE DB Source Error Output].Columns[logSizeInKB]"
+                              dataType="i8"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE SRC - Get DBs Information.Outputs[OLE DB Source Error Output].Columns[logSizeInKB]"
+                              name="logSizeInKB" />
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE SRC - Get DBs Information.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                              dataType="i4"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE SRC - Get DBs Information.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                              name="ErrorCode"
+                              specialFlags="1" />
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE SRC - Get DBs Information.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                              dataType="i4"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE SRC - Get DBs Information.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                              name="ErrorColumn"
+                              specialFlags="2" />
+                          </outputColumns>
+                          <externalMetadataColumns />
+                        </output>
+                      </outputs>
+                    </component>
+                  </components>
+                  <paths>
+                    <path
+                      refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size.Paths[OLE DB Source Output]"
+                      endId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE DST - Store Data and Log Size Information.Inputs[OLE DB Destination Input]"
+                      name="OLE DB Source Output"
+                      startId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE SRC - Get DBs Information.Outputs[OLE DB Source Output]" />
+                  </paths>
+                </pipeline>
+              </DTS:ObjectData>
+            </DTS:Executable>
+            <DTS:Executable
+              DTS:refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes"
+              DTS:CreationName="Microsoft.Pipeline"
+              DTS:Description="Data Flow Task"
+              DTS:DTSID="{2CED150B-667D-40AA-AFAB-42B4CA7EB7C3}"
+              DTS:ExecutableType="Microsoft.Pipeline"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="DFT - Unused Indexes"
+              DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+              <DTS:Variables />
+              <DTS:ObjectData>
+                <pipeline
+                  version="1">
+                  <components>
+                    <component
+                      refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information"
+                      componentClassID="Microsoft.OLEDBDestination"
+                      contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                      description="OLE DB Destination"
+                      name="OLE DST - Store Unused Index Information"
+                      usesDispositions="true"
+                      version="4">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                          name="CommandTimeout">0</property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the name of the database object used to open a rowset."
+                          name="OpenRowset">[monitor].[UnusedIndexes]</property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the variable that contains the name of the database object used to open a rowset."
+                          name="OpenRowsetVariable"></property>
+                        <property
+                          dataType="System.String"
+                          description="The SQL command to be executed."
+                          name="SqlCommand"
+                          UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the column code page to use when code page information is unavailable from the data source."
+                          name="DefaultCodePage">1252</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Forces the use of the DefaultCodePage property value when describing character data."
+                          name="AlwaysUseDefaultCodePage">false</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the mode used to access the database."
+                          name="AccessMode"
+                          typeConverter="AccessMode">3</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                          name="FastLoadKeepIdentity">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                          name="FastLoadKeepNulls">false</property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                          name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                          name="FastLoadMaxInsertCommitSize">2147483647</property>
+                      </properties>
+                      <connections>
+                        <connection
+                          refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Connections[OleDbConnection]"
+                          connectionManagerID="Package.ConnectionManagers[NAUTILUS\SQLSERVER2017.CentralLoggin]"
+                          connectionManagerRefId="Package.ConnectionManagers[NAUTILUS\SQLSERVER2017.CentralLoggin]"
+                          description="The OLE DB runtime connection used to access the database."
+                          name="OleDbConnection" />
+                      </connections>
+                      <inputs>
+                        <input
+                          refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input]"
+                          errorOrTruncationOperation="Insert"
+                          errorRowDisposition="FailComponent"
+                          hasSideEffects="true"
+                          name="OLE DB Destination Input">
+                          <inputColumns>
+                            <inputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].Columns[captureDate]"
+                              cachedDataType="dbTimeStamp"
+                              cachedName="captureDate"
+                              externalMetadataColumnId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].ExternalColumns[captureDate]"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[captureDate]" />
+                            <inputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].Columns[serverName]"
+                              cachedDataType="wstr"
+                              cachedLength="128"
+                              cachedName="serverName"
+                              externalMetadataColumnId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].ExternalColumns[serverName]"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[serverName]" />
+                            <inputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].Columns[schemaName]"
+                              cachedDataType="wstr"
+                              cachedLength="128"
+                              cachedName="schemaName"
+                              externalMetadataColumnId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].ExternalColumns[schemaName]"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[schemaName]" />
+                            <inputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].Columns[databaseName]"
+                              cachedDataType="wstr"
+                              cachedLength="128"
+                              cachedName="databaseName"
+                              externalMetadataColumnId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].ExternalColumns[databaseName]"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[databaseName]" />
+                            <inputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].Columns[tableName]"
+                              cachedDataType="wstr"
+                              cachedLength="128"
+                              cachedName="tableName"
+                              externalMetadataColumnId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].ExternalColumns[tableName]"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[tableName]" />
+                            <inputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].Columns[indexName]"
+                              cachedDataType="wstr"
+                              cachedLength="128"
+                              cachedName="indexName"
+                              externalMetadataColumnId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].ExternalColumns[indexName]"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[indexName]" />
+                            <inputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].Columns[indexType]"
+                              cachedDataType="wstr"
+                              cachedLength="60"
+                              cachedName="indexType"
+                              externalMetadataColumnId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].ExternalColumns[indexType]"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[indexType]" />
+                            <inputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].Columns[isFiltered]"
+                              cachedDataType="bool"
+                              cachedName="isFiltered"
+                              externalMetadataColumnId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].ExternalColumns[isFiltered]"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[isFiltered]" />
+                            <inputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].Columns[isPartitioned]"
+                              cachedDataType="bool"
+                              cachedName="isPartitioned"
+                              externalMetadataColumnId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].ExternalColumns[isPartitioned]"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[isPartitioned]" />
+                            <inputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].Columns[numberOfRows]"
+                              cachedDataType="i8"
+                              cachedName="numberOfRows"
+                              externalMetadataColumnId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].ExternalColumns[numberOfRows]"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[numberOfRows]" />
+                            <inputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].Columns[userSeeksSinceReboot]"
+                              cachedDataType="i8"
+                              cachedName="userSeeksSinceReboot"
+                              externalMetadataColumnId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].ExternalColumns[userSeeksSinceReboot]"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[userSeeksSinceReboot]" />
+                            <inputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].Columns[userScansSinceReboot]"
+                              cachedDataType="i8"
+                              cachedName="userScansSinceReboot"
+                              externalMetadataColumnId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].ExternalColumns[userScansSinceReboot]"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[userScansSinceReboot]" />
+                            <inputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].Columns[userLookupsSinceReboot]"
+                              cachedDataType="i8"
+                              cachedName="userLookupsSinceReboot"
+                              externalMetadataColumnId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].ExternalColumns[userLookupsSinceReboot]"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[userLookupsSinceReboot]" />
+                            <inputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].Columns[userUpdatesSinceReboot]"
+                              cachedDataType="i8"
+                              cachedName="userUpdatesSinceReboot"
+                              externalMetadataColumnId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].ExternalColumns[userUpdatesSinceReboot]"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[userUpdatesSinceReboot]" />
+                            <inputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].Columns[indexSizeInMB]"
+                              cachedDataType="i8"
+                              cachedName="indexSizeInMB"
+                              externalMetadataColumnId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].ExternalColumns[indexSizeInMB]"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[indexSizeInMB]" />
+                            <inputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].Columns[lastReboot]"
+                              cachedDataType="dbTimeStamp"
+                              cachedName="lastReboot"
+                              externalMetadataColumnId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].ExternalColumns[lastReboot]"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[lastReboot]" />
+                          </inputColumns>
+                          <externalMetadataColumns
+                            isUsed="True">
+                            <externalMetadataColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].ExternalColumns[log_id]"
+                              dataType="i4"
+                              name="log_id" />
+                            <externalMetadataColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].ExternalColumns[captureDate]"
+                              dataType="dbTimeStamp"
+                              name="captureDate" />
+                            <externalMetadataColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].ExternalColumns[serverName]"
+                              dataType="wstr"
+                              length="128"
+                              name="serverName" />
+                            <externalMetadataColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].ExternalColumns[schemaName]"
+                              dataType="wstr"
+                              length="128"
+                              name="schemaName" />
+                            <externalMetadataColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].ExternalColumns[databaseName]"
+                              dataType="wstr"
+                              length="128"
+                              name="databaseName" />
+                            <externalMetadataColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].ExternalColumns[tableName]"
+                              dataType="wstr"
+                              length="128"
+                              name="tableName" />
+                            <externalMetadataColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].ExternalColumns[indexName]"
+                              dataType="wstr"
+                              length="128"
+                              name="indexName" />
+                            <externalMetadataColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].ExternalColumns[indexType]"
+                              dataType="wstr"
+                              length="60"
+                              name="indexType" />
+                            <externalMetadataColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].ExternalColumns[isFiltered]"
+                              dataType="bool"
+                              name="isFiltered" />
+                            <externalMetadataColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].ExternalColumns[isPartitioned]"
+                              dataType="bool"
+                              name="isPartitioned" />
+                            <externalMetadataColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].ExternalColumns[numberOfRows]"
+                              dataType="i8"
+                              name="numberOfRows" />
+                            <externalMetadataColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].ExternalColumns[userSeeksSinceReboot]"
+                              dataType="i8"
+                              name="userSeeksSinceReboot" />
+                            <externalMetadataColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].ExternalColumns[userScansSinceReboot]"
+                              dataType="i8"
+                              name="userScansSinceReboot" />
+                            <externalMetadataColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].ExternalColumns[userLookupsSinceReboot]"
+                              dataType="i8"
+                              name="userLookupsSinceReboot" />
+                            <externalMetadataColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].ExternalColumns[userUpdatesSinceReboot]"
+                              dataType="i8"
+                              name="userUpdatesSinceReboot" />
+                            <externalMetadataColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].ExternalColumns[indexSizeInMB]"
+                              dataType="i8"
+                              name="indexSizeInMB" />
+                            <externalMetadataColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input].ExternalColumns[lastReboot]"
+                              dataType="dbTimeStamp"
+                              name="lastReboot" />
+                          </externalMetadataColumns>
+                        </input>
+                      </inputs>
+                      <outputs>
+                        <output
+                          refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Outputs[OLE DB Destination Error Output]"
+                          exclusionGroup="1"
+                          isErrorOut="true"
+                          name="OLE DB Destination Error Output"
+                          synchronousInputId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input]">
+                          <outputColumns>
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                              dataType="i4"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                              name="ErrorCode"
+                              specialFlags="1" />
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                              dataType="i4"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                              name="ErrorColumn"
+                              specialFlags="2" />
+                          </outputColumns>
+                          <externalMetadataColumns />
+                        </output>
+                      </outputs>
+                    </component>
+                    <component
+                      refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes"
+                      componentClassID="Microsoft.OLEDBSource"
+                      contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                      description="OLE DB Source"
+                      name="OLE SRC - Get Unused Indexes"
+                      usesDispositions="true"
+                      version="7">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                          name="CommandTimeout">0</property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the name of the database object used to open a rowset."
+                          name="OpenRowset"></property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the variable that contains the name of the database object used to open a rowset."
+                          name="OpenRowsetVariable"></property>
+                        <property
+                          dataType="System.String"
+                          description="The SQL command to be executed."
+                          name="SqlCommand"
+                          UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">/* Create a variable to hold a list of indexes */
+DECLARE @Indexes TABLE
+(
+	serverName NVARCHAR(128)
+	,schemaName SYSNAME
+	,schemaID INT
+	,databaseName SYSNAME
+	,databaseID INT
+	,tableName SYSNAME
+	,objectID INT
+	,indexName SYSNAME
+	,indexID INT
+	,indexType NVARCHAR(60)
+	,isPrimaryKey BIT
+	,isUnique BIT
+	,isFiltered BIT
+	,isPartitioned BIT
+	,numberOfRows BIGINT
+	,totalPages BIGINT
+);
+
+/* Iterate through all databases */
+INSERT INTO @Indexes (serverName,schemaName,schemaID,databaseName,databaseID,tableName,objectID,
+indexName,indexID,indexType,isUnique,isPrimaryKey,isFiltered,isPartitioned,numberOfRows,totalPages)
+EXECUTE sys.sp_MSforeachdb
+' USE ?;
+SELECT @@SERVERNAME
+, SCHEMA_NAME(t.schema_id)
+, t.schema_id
+, DB_NAME()
+, DB_ID()
+, t.name
+, t.object_id
+, i.name
+, i.index_id
+, i.type_desc
+, i.is_primary_key
+, i.is_unique
+, i.has_filter
+, CASE WHEN COUNT(p.partition_id) &gt; 1 THEN 1 ELSE 0 END
+, SUM(p.rows)
+, SUM(au.total_pages)
+FROM sys.tables AS t WITH (NOLOCK)
+JOIN sys.indexes AS i WITH (NOLOCK)
+ON i.object_id = t.object_id
+JOIN sys.partitions AS p WITH (NOLOCK)
+ON p.object_id = i.object_id
+AND p.index_id = i.index_id
+JOIN sys.allocation_units AS au WITH (NOLOCK)
+ON au.container_id = p.partition_id
+WHERE i.index_id &lt;&gt; 0 /* exclude heaps */
+GROUP BY SCHEMA_NAME(t.schema_id)
+, t.schema_id
+, t.name
+, t.object_id
+, i.name
+, i.index_id
+, i.type_desc
+, i.has_filter
+, i.is_unique
+, i.is_primary_key;';
+
+
+/* Retrieve index stats for return to our central repository */
+SELECT 
+	GETDATE() AS [captureDate]
+	,i.serverName
+	,i.schemaName
+	,i.databaseName
+	,i.tableName
+	,i.indexName
+	,i.indexType
+	,i.isFiltered
+	,i.isPartitioned
+	,i.numberOfRows
+	,ddius.user_seeks AS [userSeeksSinceReboot]
+	,ddius.user_scans AS [userScansSinceReboot]
+	,ddius.user_lookups AS [userLookupsSinceReboot]
+	,ddius.user_updates AS [userUpdatesSinceReboot]
+	,(i.totalPages * 8)/ 1024 AS [indexSizeInMB]/* pages are 8KB */
+	,dosi.sqlserver_start_time AS [lastReboot]
+FROM 
+	@Indexes AS i
+	INNER JOIN sys.dm_db_index_usage_stats AS ddius
+		ON i.databaseID = ddius.database_id
+		AND i.objectID = ddius.object_id
+		AND i.indexID = ddius.index_id
+	CROSS APPLY sys.dm_os_sys_info AS dosi
+WHERE /* exclude system databases */
+	i.databaseName NOT IN('master','msdb','tempdb','model')
+	/* exclude unique indexes; assume they are serving a business function */
+	AND i.isUnique = 0
+	/* exclude primary keys; assume they are serving a business function */
+	AND i.isPrimaryKey = 0
+	/* no seeks have been performed since the last server reboot */
+	AND ddius.user_seeks = 0;</property>
+                        <property
+                          dataType="System.String"
+                          description="The variable that contains the SQL command to be executed."
+                          name="SqlCommandVariable"></property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the column code page to use when code page information is unavailable from the data source."
+                          name="DefaultCodePage">1252</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Forces the use of the DefaultCodePage property value when describing character data."
+                          name="AlwaysUseDefaultCodePage">false</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the mode used to access the database."
+                          name="AccessMode"
+                          typeConverter="AccessMode">2</property>
+                        <property
+                          dataType="System.String"
+                          description="The mappings between the parameters in the SQL command and variables."
+                          name="ParameterMapping"></property>
+                      </properties>
+                      <connections>
+                        <connection
+                          refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Connections[OleDbConnection]"
+                          connectionManagerID="Package.ConnectionManagers[DynamicSQLServerInstance]"
+                          connectionManagerRefId="Package.ConnectionManagers[DynamicSQLServerInstance]"
+                          description="The OLE DB runtime connection used to access the database."
+                          name="OleDbConnection" />
+                      </connections>
+                      <outputs>
+                        <output
+                          refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output]"
+                          name="OLE DB Source Output">
+                          <outputColumns>
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[captureDate]"
+                              dataType="dbTimeStamp"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].ExternalColumns[captureDate]"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[captureDate]"
+                              name="captureDate"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[serverName]"
+                              dataType="wstr"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].ExternalColumns[serverName]"
+                              length="128"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[serverName]"
+                              name="serverName"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[schemaName]"
+                              dataType="wstr"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].ExternalColumns[schemaName]"
+                              length="128"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[schemaName]"
+                              name="schemaName"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[databaseName]"
+                              dataType="wstr"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].ExternalColumns[databaseName]"
+                              length="128"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[databaseName]"
+                              name="databaseName"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[tableName]"
+                              dataType="wstr"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].ExternalColumns[tableName]"
+                              length="128"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[tableName]"
+                              name="tableName"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[indexName]"
+                              dataType="wstr"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].ExternalColumns[indexName]"
+                              length="128"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[indexName]"
+                              name="indexName"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[indexType]"
+                              dataType="wstr"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].ExternalColumns[indexType]"
+                              length="60"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[indexType]"
+                              name="indexType"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[isFiltered]"
+                              dataType="bool"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].ExternalColumns[isFiltered]"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[isFiltered]"
+                              name="isFiltered"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[isPartitioned]"
+                              dataType="bool"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].ExternalColumns[isPartitioned]"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[isPartitioned]"
+                              name="isPartitioned"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[numberOfRows]"
+                              dataType="i8"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].ExternalColumns[numberOfRows]"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[numberOfRows]"
+                              name="numberOfRows"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[userSeeksSinceReboot]"
+                              dataType="i8"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].ExternalColumns[userSeeksSinceReboot]"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[userSeeksSinceReboot]"
+                              name="userSeeksSinceReboot"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[userScansSinceReboot]"
+                              dataType="i8"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].ExternalColumns[userScansSinceReboot]"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[userScansSinceReboot]"
+                              name="userScansSinceReboot"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[userLookupsSinceReboot]"
+                              dataType="i8"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].ExternalColumns[userLookupsSinceReboot]"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[userLookupsSinceReboot]"
+                              name="userLookupsSinceReboot"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[userUpdatesSinceReboot]"
+                              dataType="i8"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].ExternalColumns[userUpdatesSinceReboot]"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[userUpdatesSinceReboot]"
+                              name="userUpdatesSinceReboot"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[indexSizeInMB]"
+                              dataType="i8"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].ExternalColumns[indexSizeInMB]"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[indexSizeInMB]"
+                              name="indexSizeInMB"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[lastReboot]"
+                              dataType="dbTimeStamp"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].ExternalColumns[lastReboot]"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].Columns[lastReboot]"
+                              name="lastReboot"
+                              truncationRowDisposition="FailComponent" />
+                          </outputColumns>
+                          <externalMetadataColumns
+                            isUsed="True">
+                            <externalMetadataColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].ExternalColumns[captureDate]"
+                              dataType="dbTimeStamp"
+                              name="captureDate" />
+                            <externalMetadataColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].ExternalColumns[serverName]"
+                              dataType="wstr"
+                              length="128"
+                              name="serverName" />
+                            <externalMetadataColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].ExternalColumns[schemaName]"
+                              dataType="wstr"
+                              length="128"
+                              name="schemaName" />
+                            <externalMetadataColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].ExternalColumns[databaseName]"
+                              dataType="wstr"
+                              length="128"
+                              name="databaseName" />
+                            <externalMetadataColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].ExternalColumns[tableName]"
+                              dataType="wstr"
+                              length="128"
+                              name="tableName" />
+                            <externalMetadataColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].ExternalColumns[indexName]"
+                              dataType="wstr"
+                              length="128"
+                              name="indexName" />
+                            <externalMetadataColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].ExternalColumns[indexType]"
+                              dataType="wstr"
+                              length="60"
+                              name="indexType" />
+                            <externalMetadataColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].ExternalColumns[isFiltered]"
+                              dataType="bool"
+                              name="isFiltered" />
+                            <externalMetadataColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].ExternalColumns[isPartitioned]"
+                              dataType="bool"
+                              name="isPartitioned" />
+                            <externalMetadataColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].ExternalColumns[numberOfRows]"
+                              dataType="i8"
+                              name="numberOfRows" />
+                            <externalMetadataColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].ExternalColumns[userSeeksSinceReboot]"
+                              dataType="i8"
+                              name="userSeeksSinceReboot" />
+                            <externalMetadataColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].ExternalColumns[userScansSinceReboot]"
+                              dataType="i8"
+                              name="userScansSinceReboot" />
+                            <externalMetadataColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].ExternalColumns[userLookupsSinceReboot]"
+                              dataType="i8"
+                              name="userLookupsSinceReboot" />
+                            <externalMetadataColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].ExternalColumns[userUpdatesSinceReboot]"
+                              dataType="i8"
+                              name="userUpdatesSinceReboot" />
+                            <externalMetadataColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].ExternalColumns[indexSizeInMB]"
+                              dataType="i8"
+                              name="indexSizeInMB" />
+                            <externalMetadataColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output].ExternalColumns[lastReboot]"
+                              dataType="dbTimeStamp"
+                              name="lastReboot" />
+                          </externalMetadataColumns>
+                        </output>
+                        <output
+                          refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Error Output]"
+                          isErrorOut="true"
+                          name="OLE DB Source Error Output">
+                          <outputColumns>
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Error Output].Columns[captureDate]"
+                              dataType="dbTimeStamp"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Error Output].Columns[captureDate]"
+                              name="captureDate" />
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Error Output].Columns[serverName]"
+                              dataType="wstr"
+                              length="128"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Error Output].Columns[serverName]"
+                              name="serverName" />
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Error Output].Columns[schemaName]"
+                              dataType="wstr"
+                              length="128"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Error Output].Columns[schemaName]"
+                              name="schemaName" />
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Error Output].Columns[databaseName]"
+                              dataType="wstr"
+                              length="128"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Error Output].Columns[databaseName]"
+                              name="databaseName" />
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Error Output].Columns[tableName]"
+                              dataType="wstr"
+                              length="128"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Error Output].Columns[tableName]"
+                              name="tableName" />
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Error Output].Columns[indexName]"
+                              dataType="wstr"
+                              length="128"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Error Output].Columns[indexName]"
+                              name="indexName" />
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Error Output].Columns[indexType]"
+                              dataType="wstr"
+                              length="60"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Error Output].Columns[indexType]"
+                              name="indexType" />
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Error Output].Columns[isFiltered]"
+                              dataType="bool"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Error Output].Columns[isFiltered]"
+                              name="isFiltered" />
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Error Output].Columns[isPartitioned]"
+                              dataType="bool"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Error Output].Columns[isPartitioned]"
+                              name="isPartitioned" />
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Error Output].Columns[numberOfRows]"
+                              dataType="i8"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Error Output].Columns[numberOfRows]"
+                              name="numberOfRows" />
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Error Output].Columns[userSeeksSinceReboot]"
+                              dataType="i8"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Error Output].Columns[userSeeksSinceReboot]"
+                              name="userSeeksSinceReboot" />
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Error Output].Columns[userScansSinceReboot]"
+                              dataType="i8"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Error Output].Columns[userScansSinceReboot]"
+                              name="userScansSinceReboot" />
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Error Output].Columns[userLookupsSinceReboot]"
+                              dataType="i8"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Error Output].Columns[userLookupsSinceReboot]"
+                              name="userLookupsSinceReboot" />
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Error Output].Columns[userUpdatesSinceReboot]"
+                              dataType="i8"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Error Output].Columns[userUpdatesSinceReboot]"
+                              name="userUpdatesSinceReboot" />
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Error Output].Columns[indexSizeInMB]"
+                              dataType="i8"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Error Output].Columns[indexSizeInMB]"
+                              name="indexSizeInMB" />
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Error Output].Columns[lastReboot]"
+                              dataType="dbTimeStamp"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Error Output].Columns[lastReboot]"
+                              name="lastReboot" />
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                              dataType="i4"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                              name="ErrorCode"
+                              specialFlags="1" />
+                            <outputColumn
+                              refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                              dataType="i4"
+                              lineageId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                              name="ErrorColumn"
+                              specialFlags="2" />
+                          </outputColumns>
+                          <externalMetadataColumns />
+                        </output>
+                      </outputs>
+                    </component>
+                  </components>
+                  <paths>
+                    <path
+                      refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes.Paths[OLE DB Source Output]"
+                      endId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information.Inputs[OLE DB Destination Input]"
+                      name="OLE DB Source Output"
+                      startId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes.Outputs[OLE DB Source Output]" />
+                  </paths>
+                </pipeline>
+              </DTS:ObjectData>
+            </DTS:Executable>
+            <DTS:Executable
+              DTS:refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\SQL - Update LastMonitored"
+              DTS:CreationName="Microsoft.ExecuteSQLTask"
+              DTS:Description="Execute SQL Task"
+              DTS:DTSID="{CD869B4A-3D75-4262-B6F6-65222D3F23D4}"
+              DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="SQL - Update LastMonitored"
+              DTS:ThreadHint="0">
+              <DTS:Variables />
+              <DTS:ObjectData>
+                <SQLTask:SqlTaskData
+                  SQLTask:Connection="{431E4CC8-6B32-4ACF-AD39-5C52348E865D}"
+                  SQLTask:SqlStatementSource="&#xA;UPDATE &#xA;&#x9;monitor.SQLServerInstance&#xA;SET &#xA;&#x9;LastMonitored = GETDATE()&#xA;WHERE &#xA;&#x9;Instance= ?;&#xA;&#xA;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+                  <SQLTask:ParameterBinding
+                    SQLTask:ParameterName="0"
+                    SQLTask:DtsVariableName="User::SQLServerInstance"
+                    SQLTask:ParameterDirection="Input"
+                    SQLTask:DataType="130"
+                    SQLTask:ParameterSize="128" />
+                </SQLTask:SqlTaskData>
+              </DTS:ObjectData>
+            </DTS:Executable>
+          </DTS:Executables>
+          <DTS:PrecedenceConstraints>
+            <DTS:PrecedenceConstraint
+              DTS:refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance.PrecedenceConstraints[Constraint]"
+              DTS:CreationName=""
+              DTS:DTSID="{44F1AC48-4A9F-4076-A856-40604E165B9A}"
+              DTS:From="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size"
+              DTS:LogicalAnd="True"
+              DTS:ObjectName="Constraint"
+              DTS:To="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes" />
+            <DTS:PrecedenceConstraint
+              DTS:refId="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance.PrecedenceConstraints[Constraint 1]"
+              DTS:CreationName=""
+              DTS:DTSID="{EF93255E-1C33-42AB-BD00-5F452ADFCA06}"
+              DTS:From="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes"
+              DTS:LogicalAnd="True"
+              DTS:ObjectName="Constraint 1"
+              DTS:To="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\SQL - Update LastMonitored" />
+          </DTS:PrecedenceConstraints>
+          <DTS:ForEachVariableMappings>
+            <DTS:ForEachVariableMapping
+              DTS:CreationName=""
+              DTS:DTSID="{F5C75ECD-A6BE-4A9D-8662-EF0F46CBF124}"
+              DTS:ObjectName="{F5C75ECD-A6BE-4A9D-8662-EF0F46CBF124}"
+              DTS:ValueIndex="0"
+              DTS:VariableName="User::SQLServerInstance" />
+          </DTS:ForEachVariableMappings>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\SQNC - Metadata Collector\SQL - Get SQL Server Insrances"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Get the list of all SQL Server instances registered."
+          DTS:DTSID="{F8BF3127-7CFF-4C3E-8A7D-ED06F0612F13}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SQL - Get SQL Server Insrances"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{431E4CC8-6B32-4ACF-AD39-5C52348E865D}"
+              SQLTask:BypassPrepare="False"
+              SQLTask:SqlStatementSource="&#xA;SELECT&#xA;&#x9;Instance&#xA;FROM&#xA;&#x9;monitor.SQLServerInstance&#xA;;&#xA;"
+              SQLTask:ResultType="ResultSetType_Rowset" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ResultBinding
+                SQLTask:ResultName="0"
+                SQLTask:DtsVariableName="User::SQLServerList" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\SQNC - Metadata Collector.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{474EC37D-CDBC-4438-BDC6-22C7C600A148}"
+          DTS:From="Package\SQNC - Metadata Collector\SQL - Get SQL Server Insrances"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+  </DTS:Executables>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
 <!--If you manually edit this section and make a mistake, you can delete it. -->
@@ -24,5 +1379,263 @@
 <Objects
   Version="8">
   <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="173.6,41.6"
+          Id="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size"
+          TopLeft="43.0857162319885,13.5058854931366" />
+        <NodeLayout
+          Size="183.2,41.6"
+          Id="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes"
+          TopLeft="39.6571447450289,85.0823570852049" />
+        <NodeLayout
+          Size="211.2,41.6"
+          Id="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\SQL - Update LastMonitored"
+          TopLeft="21.9428587290706,157.835298519069" />
+        <EdgeLayout
+          Id="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance.PrecedenceConstraints[Constraint]"
+          TopLeft="130.571430488509,55.1058854931366">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,29.9764715920683"
+              Start="0,0"
+              End="0,22.4764715920683">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.4764715920683" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance.PrecedenceConstraints[Constraint 1]"
+          TopLeft="129.40000173705,126.682357085205">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,31.1529414338637"
+              Start="0,0"
+              End="0,23.6529414338637">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.6529414338637" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="262.4,252"
+          Size="262.4,295.2"
+          Id="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance"
+          TopLeft="12.4571440638328,73.4117670481593" />
+        <NodeLayout
+          Size="228,41.6"
+          Id="Package\SQNC - Metadata Collector\SQL - Get SQL Server Insrances"
+          TopLeft="8.80000143051159,7.67059076632597" />
+        <EdgeLayout
+          Id="Package\SQNC - Metadata Collector.PrecedenceConstraints[Constraint]"
+          TopLeft="122.800001430512,49.270590766326">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="20.8571426333212,24.1411762818333"
+              Start="0,0"
+              End="20.8571426333212,16.6411762818333">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,8.07058814091667" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,8.07058814091667"
+                    Point2="0,12.0705881409167"
+                    Point3="4,12.0705881409167" />
+                  <mssgle:LineSegment
+                    End="16.8571426333212,12.0705881409167" />
+                  <mssgle:CubicBezierSegment
+                    Point1="16.8571426333212,12.0705881409167"
+                    Point2="20.8571426333212,12.0705881409167"
+                    Point3="20.8571426333212,16.0705881409167" />
+                  <mssgle:LineSegment
+                    End="20.8571426333212,16.6411762818333" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="280,404.8"
+          Size="280,448"
+          Id="Package\SQNC - Metadata Collector"
+          TopLeft="64.5714296710736,22.6352944350986" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="226.4,41.6"
+          Id="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE SRC - Get DBs Information"
+          TopLeft="51.4285723043947,45.270588870197" />
+        <NodeLayout
+          Size="302.4,41.6"
+          Id="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE DST - Store Data and Log Size Information"
+          TopLeft="39.428572100036,152.941178615531" />
+        <EdgeLayout
+          Id="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size.Paths[OLE DB Source Output]"
+          TopLeft="164.628572304395,86.870588870197">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="25.9999997956413,66.0705897453335"
+              Start="0,0"
+              End="25.9999997956413,58.5705897453335">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,29.0352948726668" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,29.0352948726668"
+                    Point2="0,33.0352948726668"
+                    Point3="4,33.0352948726668" />
+                  <mssgle:LineSegment
+                    End="21.9999997956413,33.0352948726668" />
+                  <mssgle:CubicBezierSegment
+                    Point1="21.9999997956413,33.0352948726668"
+                    Point2="25.9999997956413,33.0352948726668"
+                    Point3="25.9999997956413,37.0352948726668" />
+                  <mssgle:LineSegment
+                    End="25.9999997956413,58.5705897453335" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE DST - Store Data and Log Size Information">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Database Size\OLE SRC - Get DBs Information">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="225.6,41.6"
+          Id="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes"
+          TopLeft="90.4,66.4" />
+        <NodeLayout
+          Size="282.4,41.6"
+          Id="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information"
+          TopLeft="92.8,184.8" />
+        <EdgeLayout
+          Id="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes.Paths[OLE DB Source Output]"
+          TopLeft="203.2,108">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="30.8,76.8"
+              Start="0,0"
+              End="30.8,69.3">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,34.4" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,34.4"
+                    Point2="0,38.4"
+                    Point3="4,38.4" />
+                  <mssgle:LineSegment
+                    End="26.8,38.4" />
+                  <mssgle:CubicBezierSegment
+                    Point1="26.8,38.4"
+                    Point2="30.8,38.4"
+                    Point3="30.8,42.4" />
+                  <mssgle:LineSegment
+                    End="30.8,69.3" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE DST - Store Unused Index Information">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\SQNC - Metadata Collector\Foreach SQL Server Instrance\DFT - Unused Indexes\OLE SRC - Get Unused Indexes">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
 </Objects>]]></DTS:DesignTimeProperties>
 </DTS:Executable>
