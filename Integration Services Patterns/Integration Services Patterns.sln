@@ -5,6 +5,13 @@ VisualStudioVersion = 15.0.28010.2048
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "Metadata Collection", "Metadata Collection\Metadata Collection.dtproj", "{31E0F325-8EC4-4329-9A55-F1C2A2CEDCB3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{798C5909-D09A-4727-A248-B66648EE512F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL Scripts", "SQL Scripts", "{97B1A66D-139C-407D-A1DF-D8079A0D45AA}"
+	ProjectSection(SolutionItems) = preProject
+		Metadata_Collection.sql = Metadata_Collection.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Development|Default = Development|Default
@@ -15,6 +22,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{97B1A66D-139C-407D-A1DF-D8079A0D45AA} = {798C5909-D09A-4727-A248-B66648EE512F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DA4D3EA8-989C-46C1-B980-682B5A2EF38A}
