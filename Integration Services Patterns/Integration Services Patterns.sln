@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL Scripts", "SQL Scripts"
 		Metadata_Collection.sql = Metadata_Collection.sql
 	EndProjectSection
 EndProject
+Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "Execution Patterns", "Execution Patterns\Execution Patterns.dtproj", "{0FD9A9FA-BD3F-4F37-A6E1-6EE6AD4B8C91}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Development|Default = Development|Default
@@ -19,6 +21,8 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{31E0F325-8EC4-4329-9A55-F1C2A2CEDCB3}.Development|Default.ActiveCfg = Development
 		{31E0F325-8EC4-4329-9A55-F1C2A2CEDCB3}.Development|Default.Build.0 = Development
+		{0FD9A9FA-BD3F-4F37-A6E1-6EE6AD4B8C91}.Development|Default.ActiveCfg = Development
+		{0FD9A9FA-BD3F-4F37-A6E1-6EE6AD4B8C91}.Development|Default.Build.0 = Development
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
