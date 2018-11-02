@@ -1,0 +1,10 @@
+﻿<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="ADO AdventureWorks2017"
+  DTS:DTSID="{B83E6942-D9A3-4E30-9BEE-312D9CAEB2CE}"
+  DTS:CreationName="ADO.NET:System.Data.SqlClient.SqlConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectionString="Data Source=NAUTILUS\SQLSERVER2017;Initial Catalog=AdventureWorks2017;Integrated Security=True;Application Name=SSIS-Script-{B83E6942-D9A3-4E30-9BEE-312D9CAEB2CE}NAUTILUS\SQLSERVER2017.AdventureWorks20171;" />
+  </DTS:ObjectData>
+</DTS:ConnectionManager>
